@@ -426,11 +426,17 @@ refreshQuests(*) {
     activateRoblox()  ; Re-focus the game window if it lost focus.
     ocrTextResult := getOcrResult(COORDS["OCR"]["RankProgressStart"], COORDS["OCR"]["RankProgressSize"], 20)  ; Read the rank progress using OCR.
     rankArray := StrSplit(ocrTextResult, " ")
-    rankDetails := getRankDetails(rankArray[2])
-    writeToLogFile("  Rank Details: " ocrTextResult)  ; Log the rank details.
-
-    ; Update the main GUI title with the rank, reward progress, and current time.
-    guiMain.Title := MACRO_TITLE " v" MACRO_VERSION "  (Rank: " rankDetails.rankNumber ", " rankDetails.rankName ", " rankArray[1] ")  (" FormatTime(A_Now, "h:mm tt") ")"
+    
+    ; Safety check: if OCR failed (e.g., returned a single word without spaces), use a fallback name and number.
+    if (rankArray.Length >= 2) {
+        rankDetails := getRankDetails(rankArray[2])
+        writeToLogFile("  Rank Details: " ocrTextResult)  ; Log the rank details.
+        ; Update the main GUI title with the rank, reward progress, and current time.
+        guiMain.Title := MACRO_TITLE " v" MACRO_VERSION "  (Rank: " rankDetails.rankNumber ", " rankDetails.rankName ", " rankArray[1] ")  (" FormatTime(A_Now, "h:mm tt") ")"
+    } else {
+        writeToLogFile("  Rank Details OCR Failed: " ocrTextResult)
+        guiMain.Title := MACRO_TITLE " v" MACRO_VERSION "  (Rank: Unknown)  (" FormatTime(A_Now, "h:mm tt") ")"
+    }
 
     closeAllWindows()  ; Close all open windows.
     setCurrentAction("-")  ; Reset the current action status.
