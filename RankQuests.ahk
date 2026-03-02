@@ -30,8 +30,6 @@ PI := 3.141592653589793238462643383279502884197169399375105820974944592307816406
 ONE_SECOND := 1000  ; Number of milliseconds in one second, used for timing operations.
 
 ; Zone settings defining game areas.
-BEST_ZONE := 219  ; Identifier for the best zone, typically where optimal actions occur.
-SECOND_BEST_ZONE := 218  ; Identifier for the second-best ZONE
 RARE_EGG_ZONE := 209
 USE_FLAG_ZONES := [200, 201, 202, 203, 204]  ; Define the zones where flags will be used.
 
