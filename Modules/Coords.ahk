@@ -17,10 +17,10 @@ global COORDS := Map()
 
 COORDS["Controls"] := Map()
 COORDS["Controls"]["FreeGifts"] := [40, 189]
-COORDS["Controls"]["Teleport"] := [104, 189]
-COORDS["Controls"]["HatchSettings"] := [104, 247]
-COORDS["Controls"]["AutoFarm"] := [40, 311]
-COORDS["Controls"]["AutoTap"] := [104, 311]
+COORDS["Controls"]["Teleport"] := [104, 247]        ; Shifted down 1 row
+COORDS["Controls"]["HatchSettings"] := [104, 305]   ; Shifted down 1 row (was 247, spacing ~58px)
+COORDS["Controls"]["AutoFarm"] := [40, 311]         ; Unchanged
+COORDS["Controls"]["AutoTap"] := [104, 363]         ; Shifted down 1 row
 COORDS["Controls"]["Ultimate"] := [242, 514]
 COORDS["Controls"]["Rewards1"] := [706, 425] ; Standard button position.
 COORDS["Controls"]["Rewards2"] := [706, 364] ; Button position when rank up occurs.
