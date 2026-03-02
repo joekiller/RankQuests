@@ -1787,8 +1787,18 @@ claimFreeGifts() {
 clickRewardsButton() {
     activateRoblox()  ; Focus on Roblox window.
 
-    rewardsButton := COORDS["Controls"]["Rewards1"]  ; Get the rewards button coordinates.
-    MouseMove rewardsButton[1], rewardsButton[2]  ; Position cursor at the rewards button.
+    rewardsX := COORDS["Controls"]["Rewards1"][1]  ; Standard X coordinate (approx 706).
+    rewardsY := COORDS["Controls"]["Rewards1"][2]  ; Standard Y coordinate fallback.
+
+    ; The Rewards button floats vertically depending on the number of active quests.
+    ; Search a vertical column along rewardsX from Y=250 down to Y=550 for the distinct green button color.
+    if PixelSearch(&foundX, &foundY, rewardsX - 20, 250, rewardsX + 20, 550, "0x38F722", 40) {
+        MouseMove foundX, foundY
+    } else {
+        ; Fallback to the default coordinate if the dynamic color scan missed it.
+        MouseMove rewardsX, rewardsY  
+    }
+
     activateMouseHover()  ; Trigger hover effects.
     Click  ; Perform click action.
 
