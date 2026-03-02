@@ -1145,6 +1145,13 @@ loopAmountOfSeconds(amountOfSeconds) {
 doSupercomputerStuff(questId, buttonColours, amountToMake, amountMultiplier, hasMastery := false, searchText := "", itemToIgnore := "") {
     activateRoblox()  ; Ensure Roblox is the active application.
     goToSupercomputer()  ; Navigate to the supercomputer location.
+    
+    ; Verify that the menu has loaded before interacting
+    if !waitForSupercomputerMenu() {
+        writeToLogFile("Supercomputer menu failed to open! Quest aborted.")
+        return
+    }
+
     findAndClickSupercomputerButton(buttonColours) 
 
     if (searchText != "") {
@@ -1155,9 +1162,25 @@ doSupercomputerStuff(questId, buttonColours, amountToMake, amountMultiplier, has
 
     ; Ensure the user has the required pet/item for conversion.
     itemCoordinates := hasMastery ? COORDS["Supercomputer"]["Item1Mastery"] : COORDS["Supercomputer"]["Item1"]
+    
     if PixelGetColor(itemCoordinates[1], itemCoordinates[2]) == "0xFFFFFF" {
         QUEST_PRIORITY[questId] := 0
         return
+    }
+
+    ; If we're making Golden or Rainbow pets, bypass Shiny pets to prevent getting stuck
+    if (itemToIgnore == "i)shiny" && isPetShiny()) {
+        ; Deselect Item 1 and pick Item 2 instead
+        nextItemCoordinates := [itemCoordinates[1] + 60, itemCoordinates[2]] ; Assuming 60px grid pacing
+        leftClickMouseAndWait(nextItemCoordinates, 300)
+        
+        ; Verify again; if it's still Shiny or empty, abort to be safe
+        if (isPetShiny() || PixelGetColor(nextItemCoordinates[1], nextItemCoordinates[2]) == "0xFFFFFF") {
+            QUEST_PRIORITY[questId] := 0
+            moveAwayFromTheSupercomputer()
+            closeAllWindows()
+            return
+        }
     }
 
     findAngle(amountToMake, amountMultiplier, hasMastery)  ; Calculate necessary adjustments for the operation.
@@ -1165,6 +1188,29 @@ doSupercomputerStuff(questId, buttonColours, amountToMake, amountMultiplier, has
     moveAwayFromTheSupercomputer()  ; Step back from the supercomputer post-operation.
     closeAllWindows()
     clickMachineSuccessButton()  ; Acknowledge the successful operation.
+}
+
+; ----------------------------------------------------------------------------------------
+; waitForSupercomputerMenu Function
+; Description: Waits up to approximately 5 seconds for the Supercomputer interface to appear.
+; ----------------------------------------------------------------------------------------
+waitForSupercomputerMenu() {
+    Loop 50 {
+        if isSupercomputerMenuOpen() {
+            return true
+        }
+        Sleep 100
+    }
+    return false
+}
+
+; ----------------------------------------------------------------------------------------
+; isSupercomputerMenuOpen Function
+; Description: Verifies if the Supercomputer menu is visibly open by checking the "X" (close) button color.
+; ----------------------------------------------------------------------------------------
+isSupercomputerMenuOpen() {
+    searchPos := COORDS["Supercomputer"]["X"] ; Check for the X button
+    return PixelGetColor(searchPos[1], searchPos[2]) == "0xEAEBE0" ; Replace with the actual color code if different, 0xEAEBE0 is typical for Roblox X
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -1178,6 +1224,20 @@ doSupercomputerStuff(questId, buttonColours, amountToMake, amountMultiplier, has
 ; ----------------------------------------------------------------------------------------
 selectSupercomputerSearchBox() {
     leftClickMouseAndWait(COORDS["Supercomputer"]["Search"], "SupercomputerAfterSearchClicked")
+}
+
+; ----------------------------------------------------------------------------------------
+; isPetShiny Function
+; Description: Verifies if the selected pet is Shiny by scanning the pet details area for the Shiny text color.
+; ----------------------------------------------------------------------------------------
+isPetShiny() {
+    searchStart := [560, 160]
+    searchEnd := [730, 195] 
+    ; Shiny text usually has a specific gradient, typically vivid purple/pink to yellow depending on the exact color. 
+    ; It's safer to just search a broader area here for the white/bright core, or look for the "Shiny" text itself via OCR if necessary. 
+    ; We'll use OCR for "Shiny" as suggested by the issue reporter for supreme accuracy.
+    ocrResult := getOcrResult(searchStart, [searchEnd[1]-searchStart[1], searchEnd[2]-searchStart[2]], 20, false)
+    return regexMatch(ocrResult, "i)shiny")
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -1812,7 +1872,43 @@ goToVoid() {
     setCurrentAction("Teleporting to the Void")  ; Display an action update to the user.
 
     ; Perform the final teleportation action.
-    leftClickMouseAndWait(COORDS["Worlds"][3], "TeleportAfterZoneClicked")  ; Click the Void's teleport button.
+    leftClickMouseAndWait(COORDS["Worlds"][3], 100)  ; Click the Void's teleport button briefly.
+    waitForTeleportFinish()
+}
+
+; ---------------------------------------------------------------------------------
+; waitForTeleportFinish Function
+; Description: Waits for the teleportation black loading screen to begin, and then waits for it to end.
+; ---------------------------------------------------------------------------------
+waitForTeleportFinish() {
+    ; Wait for the screen to go black (teleport starts)
+    Loop 50 { 
+        if isScreenBlack() {
+            break
+        }
+        Sleep 100
+    }
+
+    ; Wait for the screen to stop being black (teleport finishes)
+    Loop 200 { 
+        if !isScreenBlack() {
+            break
+        }
+        Sleep 100
+    }
+    
+    ; Give it a brief moment to finish rendering the UI
+    Sleep 1000 
+}
+
+; ---------------------------------------------------------------------------------
+; isScreenBlack Function
+; Description: Checks if the center of the screen is black, indicating a loading screen.
+; ---------------------------------------------------------------------------------
+isScreenBlack() {
+    searchX := A_ScreenWidth / 2
+    searchY := A_ScreenHeight / 2
+    return PixelGetColor(searchX, searchY) == "0x000000"
 }
 
 ; ----------------------------------------------------------------------------------------

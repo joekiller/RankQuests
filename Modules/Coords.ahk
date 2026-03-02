@@ -61,6 +61,7 @@ COORDS["Worlds"] := Map()
 COORDS["Worlds"][1] := [22, 239]
 COORDS["Worlds"][2] := [22, 284]
 COORDS["Worlds"][3] := [22, 329]
+COORDS["Worlds"][4] := [22, 374]
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; SUPERCOMPUTER!

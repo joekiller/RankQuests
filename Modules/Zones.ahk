@@ -1,4 +1,4 @@
-﻿#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.0
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; ZONE CONFIGURATION FILE
@@ -11,11 +11,10 @@
 ; ZONE PROPERTIES
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
-global ZONE := Map()  ; Initialize a Map object to hold ZONE ids and names.
-ZONE.Default := "?"  ; Set a default ZONE name value to "?".
+global ZONE := Map()
+ZONE.Default := "?"
 
-
-; World 1: Spawn World
+; World 1
 ; ----------------------------------------------------------------------------------------
 ZONE[1] := "Spawn"
 ZONE[2] := "Colorful Forest"
@@ -27,7 +26,7 @@ ZONE[7] := "Farm"
 ZONE[8] := "Backyard"
 ZONE[9] := "Misty Falls"
 ZONE[10] := "Mine"
-ZONE[11] := "Chrystal Caverns"
+ZONE[11] := "Crystal Caverns"
 ZONE[12] := "Dead Forest"
 ZONE[13] := "Dark Forest"
 ZONE[14] := "Mushroom Field"
@@ -113,11 +112,11 @@ ZONE[93] := "Cloud Houses"
 ZONE[94] := "Cloud Palace"
 ZONE[95] := "Heaven Gates"
 ZONE[96] := "Heaven"
-ZONE[97] := "Heaven Gate Castle"
+ZONE[97] := "Heaven Golden Castle"
 ZONE[98] := "Colorful Clouds"
 ZONE[99] := "Rainbow Road"
 
-; World 2: Tech World
+; World 2
 ; ----------------------------------------------------------------------------------------
 ZONE[100] := "Tech Spawn"
 ZONE[101] := "Futuristic City"
@@ -135,7 +134,7 @@ ZONE[112] := "Future Beach"
 ZONE[113] := "Tech Reef"
 ZONE[114] := "Robo Pirates"
 ZONE[115] := "Cyber Cove"
-ZONE[116] := "Ruinic Desert"
+ZONE[116] := "Runic Desert"
 ZONE[117] := "Charged Pyramids"
 ZONE[118] := "Fallout Desert"
 ZONE[119] := "Tech Wild West"
@@ -144,6 +143,7 @@ ZONE[121] := "Frozen Mountains"
 ZONE[122] := "Frostbyte Forest"
 ZONE[123] := "Forcefield Mine"
 ZONE[124] := "Cyber Base Camp"
+ZONE[125] := "Frosted City"
 ZONE[126] := "Cracked Iceberg"
 ZONE[127] := "Melted River"
 ZONE[128] := "Nexus"
@@ -152,7 +152,7 @@ ZONE[130] := "Nuclear Forest"
 ZONE[131] := "Radiation Mine"
 ZONE[132] := "Exploded Reactor"
 ZONE[133] := "Spaceship Dock"
-ZONE[134] := "Rocket Planet"
+ZONE[134] := "Rocky Planet"
 ZONE[135] := "Lunar Planet"
 ZONE[136] := "Mars Planet"
 ZONE[137] := "Saturn Planet"
@@ -219,9 +219,9 @@ ZONE[197] := "Void Atomic"
 ZONE[198] := "Void Fracture"
 ZONE[199] := "Void Spiral"
 
-; World 3: Void World
+; World 3
 ; ----------------------------------------------------------------------------------------
-ZONE[200] := "Prison Tower"
+ZONE[200] := "Void Spawn"
 ZONE[201] := "Prison Block"
 ZONE[202] := "Prison Cafeteria"
 ZONE[203] := "Prison Yard"
@@ -241,3 +241,61 @@ ZONE[216] := "Stone Forts"
 ZONE[217] := "Silver City"
 ZONE[218] := "Golden Metropolis"
 ZONE[219] := "Diamond Mega City"
+ZONE[220] := "Kawaii Tokyo"
+ZONE[221] := "Kawaii Village"
+ZONE[222] := "Kawaii Grove"
+ZONE[223] := "Kawaii Dreamland"
+ZONE[224] := "Kawaii Temple"
+ZONE[225] := "Grassy Plains"
+ZONE[226] := "Rocky Ridge"
+ZONE[227] := "Crystal Lake"
+ZONE[228] := "Electro Forge"
+ZONE[229] := "Elemental Realm"
+ZONE[230] := "Elysium Fields"
+ZONE[231] := "Ocean Paradise"
+ZONE[232] := "Lost Library"
+ZONE[233] := "Nebula Forest"
+ZONE[234] := "Aether Colosseum"
+ZONE[235] := "Doodle Meadow"
+ZONE[236] := "Doodle Safari"
+ZONE[237] := "Doodle Fairyland"
+ZONE[238] := "Doodle Cave"
+ZONE[239] := "Doodle Oasis"
+
+; World 4
+; ----------------------------------------------------------------------------------------
+ZONE[240] := "Fantasy Spawn"
+ZONE[241] := "Flora Falls"
+ZONE[242] := "Lantern Forest"
+ZONE[243] := "Honeycomb Hollow"
+ZONE[244] := "Fairy Glade"
+ZONE[245] := "Windmill Point"
+ZONE[246] := "Radiant Runestones"
+ZONE[247] := "Fogbound Forest"
+ZONE[248] := "Rune Graveyard"
+ZONE[249] := "Halo Spires"
+ZONE[250] := "Twilight Grove"
+ZONE[251] := "Moonlight Ridge"
+ZONE[252] := "Starroot Highlands"
+ZONE[253] := "Aether Archways"
+ZONE[254] := "Celestial Watchtower"
+ZONE[255] := "Whispering Hills"
+ZONE[256] := "Runestone Bluff"
+ZONE[257] := "Totem Trail"
+ZONE[258] := "Wyrmwatch Ridge"
+ZONE[259] := "Highcliff Sanctuary"
+ZONE[260] := "Ember Cliffs"
+ZONE[261] := "Charred Canyon"
+ZONE[262] := "Ember Chasm"
+ZONE[263] := "Molten Nest"
+ZONE[264] := "Obsidian Spire"
+ZONE[265] := "Crystalfall Hollow"
+ZONE[266] := "Glimmer Grottos"
+ZONE[267] := "Mirror Tome Path"
+ZONE[268] := "Scribes Terrace"
+ZONE[269] := "Archivists Tower"
+ZONE[270] := "Mystmire Bloom"
+ZONE[271] := "Lotus Fenlight"
+ZONE[272] := "Faerie Hex Glade"
+ZONE[273] := "Bloomcourt Terrace"
+ZONE[274] := "Toadstool Throne"
